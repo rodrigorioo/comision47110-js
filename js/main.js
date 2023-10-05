@@ -205,19 +205,28 @@ const var2 = "Como estas";
  * nombre del lugar
  */
 
-let costo = 0;
-const lugarAViajar = prompt("Ingrese a dónde quiere viajar");
+// let costo = 0;
+// const lugarAViajar = prompt("Ingrese a dónde quiere viajar");
+//
+// if(lugarAViajar == "Colombia" || lugarAViajar == "Perú") {
+//     costo = 40;
+// } else if(lugarAViajar == "México" || lugarAViajar == "Estados Unidos") {
+//     costo = 50;
+// } else if(lugarAViajar == "Uruguay" || lugarAViajar == "Chile") {
+//     costo = 20;
+// } else if(lugarAViajar == "Ecuador" || lugarAViajar == "Brasil") {
+//     costo = 30;
+// }
+//
+// console.log("El costo de su viaje a " + lugarAViajar + " es: $" + costo);
 
-if(lugarAViajar == "Colombia" || lugarAViajar == "Perú") {
-    costo = 40;
-} else if(lugarAViajar == "México" || lugarAViajar == "Estados Unidos") {
-    costo = 50;
-} else if(lugarAViajar == "Uruguay" || lugarAViajar == "Chile") {
-    costo = 20;
-} else if(lugarAViajar == "Ecuador" || lugarAViajar == "Brasil") {
-    costo = 30;
+// Igual y estrictamente igual
+
+const variable1 = 10;
+const variable2 = "10";
+
+if(parseInt(variable1) === parseInt(variable2)) {
+    console.log("Las 2 variables son iguales");
+} else {
+    console.log("No son iguales");
 }
-
-console.log("El costo de su viaje a " + lugarAViajar + " es: $" + costo);
-
-
