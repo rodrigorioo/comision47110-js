@@ -254,20 +254,65 @@
  * un número primo o no.
  */
 
-let divisores = 0;
-const numero = parseInt(prompt("Ingrese un número"));
+// let divisores = 0;
+// const numero = parseInt(prompt("Ingrese un número"));
+//
+// for(let i = numero; i >= 1; i = i - 1) {
+//
+//     if(numero % i === 0) {
+//         divisores = divisores + 1;
+//     }
+// }
+//
+// if(divisores > 2) {
+//     console.log("El número ingresado NO es primo");
+// } else {
+//     console.log("El número ingresado es primo");
+// }
 
-for(let i = numero; i >= 1; i = i - 1) {
+/**
+ * EJERCICIO 12
+ *
+ *  Realizar un programa que le pida al usuario cuántos números quiere ingresar y entre
+ * todos los que ingrese calcular cual es el mayor, el menor y la media.
+ */
 
-    if(numero % i === 0) {
-        divisores = divisores + 1;
+// Le pedimos la cantidad de números al usuario
+const cantidadDeNumeros = parseInt(prompt("Escriba la cantidad de números que desea ingresar"));
+
+// Pedimos el primer número al usuario
+let numero = parseInt(prompt("Ingrese un número"));
+
+// Variables que me van a alojar los resultados
+let mayor = numero;
+let menor = numero;
+let media = numero;
+
+// Hacemos un ciclo con la cantidad de números que ingreso el usuario
+for(let i = 0; i < cantidadDeNumeros - 1; i++) {
+
+    // Pedimos el número al usuario
+    numero = parseInt(prompt("Ingrese un número"));
+
+    // Calcular mayor
+    if(numero > mayor) {
+        mayor = numero;
     }
+
+    // Calcular menor
+    if(numero < menor) {
+        menor = numero;
+    }
+
+    // Calcular media
+    // media += numero;
+    media = media + numero;
+
 }
 
-if(divisores > 2) {
-    console.log("El número ingresado NO es primo");
-} else {
-    console.log("El número ingresado es primo");
-}
+// Mostramos los resultados
+console.log("La media es: " + media / cantidadDeNumeros);
+console.log("El mayor número es: " + mayor);
+console.log("El menor número es: " + menor);
 
 
