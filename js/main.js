@@ -1,94 +1,3 @@
-/**
- * DEFINIR EVENTO
- */
-
-// const boton = document.getElementById("botonsito");
-// const boton = document.querySelector("#botonsito");
-
-// Forma 1
-// function mostrarMensaje() {
-//     console.log("Se hizo click en el botonsito");
-// }
-//
-// boton.addEventListener("click", mostrarMensaje);
-
-// Forma 2
-// boton.addEventListener("click", () => {
-//     console.log("Se hizo click en el botonsito");
-// });
-
-/**
- * EVENTOS DE MOUSE
- */
-
-// const cajita = document.querySelector('.cajita');
-
-// cajita.addEventListener("mousedown", () => {
-//     console.log("APRETASTE EL MOUSE EN LA CAJITA");
-// });
-//
-// cajita.addEventListener("click", () => {
-//     console.log("CLICK ELEMENTO");
-// });
-//
-// cajita.addEventListener("mouseup", () => {
-//     console.log("SOLTASTE EL MOUSE EN LA CAJITA");
-// });
-
-// cajita.addEventListener("mouseover", () => {
-//     cajita.className = "cajita bg-dark";
-// });
-//
-// cajita.addEventListener("mouseout", () => {
-//     cajita.className = "cajita";
-// });
-
-// cajita.addEventListener("mousemove", () => {
-//     console.log("moviste el puntero sobre el elemento");
-// });
-
-/**
- * EVENTOS DE TECLADO
- */
-
-// const inputsito = document.querySelector(".inputsito");
-//
-// inputsito.addEventListener("keydown", (e) => {
-//
-//     const vocales = ['A', 'E', 'I', 'O', 'U'];
-//
-//     if(vocales.includes(e.key.toUpperCase())) {
-//         e.preventDefault();
-//     }
-//
-//     console.log("SE EJECUTA KEYDOWN");
-// });
-
-// inputsito.addEventListener("keyup", () => {
-//     console.log("SE EJECUTA KEYUP");
-// });
-//
-// inputsito.addEventListener("change", () => {
-//     console.log("SE EJECUTA CHANGE");
-// });
-
-/**
- * EVENTO DE SUBMIT
- */
-
-// const form = document.querySelector(".formsito");
-//
-// form.addEventListener("submit", (e) => {
-//
-//     e.preventDefault();
-//
-//     console.log("SE HIZO SUBMIT DEL FORMULARIO");
-// });
-
-/**
- * EJEMPLO COMPLETO
- */
-
 // Clases
 class Producto {
 
@@ -164,6 +73,108 @@ function inicializarInput() {
     });
 }
 
+function eliminarProducto(producto) {
+
+    // Busco el producto a eliminar del carrito por el nombre
+    const indiceProductoAEliminar = carrito.findIndex( (el) => {
+        return producto.nombre === el.nombre;
+    });
+
+    // Si el índice del producto a eliminar existe
+    if(indiceProductoAEliminar !== -1) {
+
+        // Elimino el producto del carrito
+        carrito.splice(indiceProductoAEliminar, 1);
+
+        // Actualizo localStorage
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+
+        renderizarTablaCarrito(carrito);
+    }
+}
+
+function obtenerProductosEnLS() {
+
+    carrito = JSON.parse(localStorage.getItem("carrito"));
+
+    if(carrito) {
+        renderizarTablaCarrito(carrito);
+    }
+}
+
+function guardarProductoEnLS(producto, cantidad) {
+
+    const productoAAgregar = {
+        nombre: producto.nombre,
+        precio: producto.precio,
+        cantidad: parseInt(cantidad),
+    };
+
+    // No hay productos en local Storage
+    if(carrito === null) {
+
+        carrito = [productoAAgregar];
+
+    } else {
+
+        // Busco el índice del producto en el array del localstorage para editarlo si existe
+        const indiceExisteProducto = carrito.findIndex( (el) => {
+            return el.nombre === productoAAgregar.nombre;
+        });
+
+        // Si el producto no existe en el localstorage, lo agrego
+        if(indiceExisteProducto === -1) {
+            carrito.push(productoAAgregar);
+        } else {
+            // Si existe, a la cantidad del producto que está en localstorage, le sumo la nueva cantidad
+            carrito[indiceExisteProducto].cantidad += parseInt(cantidad);
+        }
+    }
+
+    // Actualizo localStorage
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+
+    renderizarTablaCarrito(carrito);
+
+}
+
+function renderizarTablaCarrito(productosCarrito) {
+
+    const tbody = document.querySelector("#carrito table tbody");
+    tbody.innerHTML = "";
+
+    for(const productoCarrito of productosCarrito) {
+
+        const tr = document.createElement("tr");
+
+        const tdNombre = document.createElement("td");
+        tdNombre.innerText = productoCarrito.nombre;
+
+        const tdPrecio = document.createElement("td");
+        tdPrecio.innerText = `$${productoCarrito.precio}`;
+
+        const tdCantidad = document.createElement("td");
+        tdCantidad.innerText = productoCarrito.cantidad;
+
+        const tdEliminar = document.createElement("td");
+
+        const botonEliminar = document.createElement("button");
+        botonEliminar.className = "btn btn-danger";
+        botonEliminar.innerText = "Eliminar";
+
+        // Agregar evento al boton
+        botonEliminar.addEventListener("click", () => {
+            eliminarProducto(productoCarrito);
+        });
+
+        // Agregar elementos uno adentro de otro
+        tdEliminar.append(botonEliminar);
+        tr.append(tdNombre, tdPrecio, tdCantidad, tdEliminar);
+
+        tbody.append(tr);
+    }
+}
+
 function renderizarProductos(productos) {
 
     const contenedor = document.getElementById("contenedor");
@@ -189,12 +200,40 @@ function renderizarProductos(productos) {
         p.className = "card-text";
         p.innerHTML = `<strong>Precio:</strong> $${producto.precio} - <strong>Stock:</strong> ${producto.stock}`;
 
+        const divAgregarAlCarrito = document.createElement("div");
+        divAgregarAlCarrito.className = "d-flex align-items-center";
+
         const button = document.createElement("button");
-        button.className = "btn btn-primary";
-        button.innerText = "Comprar";
+        button.className = "btn btn-primary flex-shrink-0 me-3";
+        button.innerText = "Agregar al carrito";
+
+        const inputCantidad = document.createElement("input");
+        inputCantidad.type = "number";
+        inputCantidad.className = "form-control";
+        inputCantidad.value = 1;
+
+        // Agregar al carrito
+        button.addEventListener("click", () => {
+
+            // Obtenemos la cantidad del input
+            const cantidad = inputCantidad.value;
+
+            if(cantidad > producto.stock) {
+
+                alert("NO HAY SUFICIENTE STOCK");
+
+            } else {
+
+                // Agregar producto a Local Storage
+                guardarProductoEnLS(producto, cantidad);
+            }
+
+
+        });
 
         // Insertar elementos adentro de otro
-        divCardBody.append(h5, p, button);
+        divAgregarAlCarrito.append(button, inputCantidad);
+        divCardBody.append(h5, p, divAgregarAlCarrito);
         divCard.append(divCardBody);
         divPadre.append(divCard);
         contenedor.append(divPadre);
@@ -210,7 +249,9 @@ const listadoDeProductos = [
     new Producto("Buzo", 1000, 2),
     new Producto("Arroz", 250, 4),
 ];
+let carrito = [];
 
 renderizarProductos(listadoDeProductos);
 inicializarInput();
 inicializarSelect();
+obtenerProductosEnLS();
