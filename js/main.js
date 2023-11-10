@@ -1,260 +1,287 @@
-// const edad = parseInt(prompt("Ingrese la edad"));
-//
-// let esMayorDeEdad =  null;
+/**
+ * SPREAD DE ARRAYS
+ */
 
-// IF normal
-// if(edad >= 18) {
-//     esMayorDeEdad = true;
-// } else {
-//     esMayorDeEdad = false;
-// }
-
-// Operador ternario
-// esMayorDeEdad = (edad >= 18) ? true : false;
-//
-// console.log(esMayorDeEdad);
-
-// Operador lógico OR
-// Forma 1
-// const productosLS = localStorage.getItem("productos");
-// let productos = [];
-//
-// if(productosLS !== null) {
-//     productos = JSON.parse(productosLS);
-// }
-
-// Forma 2
-// let productos = JSON.parse(localStorage.getItem("productos"));
-//
-// if(productos === null) {
-//     productos = [];
-// }
-
-// Forma 3 - CON OPERADOR ||
-// localStorage.setItem("productos", JSON.stringify([{
-//     nombre: "Producto 1",
-//     precio: 40,
-// },
-//     {
-//         nombre: "Producto 2",
-//         precio: 20,
-//     }]));
-//
-// let productos = JSON.parse(localStorage.getItem("productos")) || [];
-//
-// console.log(productos);
-
-// ACCESO CONDICIONAL A UN OBJETO
-
-// const producto1 = {
-//     nombre: "Lechuga",
-//     precio: 20,
-//     categoria: {
-//         nombre: "Verduras",
-//         deposito: {
-//             nombre: "Deposito 2",
-//             stock: 20,
-//         }
-//     },
-// };
-//
-// const producto2 = {
-//     nombre: "Yogurt",
-//     precio: 30,
-//     categoria: {
-//         nombre: "Lacteos",
-//         deposito: {
-//             nombre: "Deposito 1",
-//             stock: 20,
-//         }
-//     }
-// };
-//
-// const producto3 = {
-//     nombre: "Lentejas",
-//     precio: 40,
-//     categoria: {
-//         nombre: "Legumbres",
-//         deposito: null,
-//     },
-// };
-//
-// console.log(
-//     producto3.categoria?.deposito?.nombre ||
-//     "Error al obtener la categoría o depósito"
-// );
-
-// DESESTRUCTURACIÓN
-
-// const producto1 = {
-//     nombre: "Lechuga",
-//     precio: 20,
-//     categoria: {
-//         nombre: "Verduras",
-//         color: "Verde",
-//         deposito: {
-//             nombre: "Deposito 2",
-//             stock: 20,
-//         }
-//     },
-// };
-
-// Desestructuración tradicional
-// const categoria = producto1.categoria;
-// const deposito = categoria.deposito;
-
-// Desestructuración de JavaScript
-// const { nombre, categoria } = producto1;
-//
-// console.log(nombre);
-// console.log(categoria);
-
-// Sub-desestructuración
-// const {
-//     nombre,
-//     categoria: {
-//         color,
-//         deposito: {
-//             stock,
-//         }
-//     }
-// } = producto1;
-//
-// console.log(nombre);
-// console.log(color);
-// console.log(stock);
-
-// Alias
-// const {
-//     nombre: nombreProducto,
-//     categoria: {
-//         color: colorCategoria,
-//         deposito: {
-//             stock: stockDeposito,
-//         }
-//     }
-// } = producto1;
-
-// console.log(nombreProducto);
-// console.log(colorCategoria);
-// console.log(stockDeposito);
-
-// const {
-//     nombre: nombreProducto,
-//     categoria: {
-//         nombre: nombreCategoria,
-//         deposito: {
-//             nombre: nombreDeposito,
-//         }
-//     }
-// } = producto1;
-//
-// console.log(nombreProducto);
-// console.log(nombreCategoria);
-// console.log(nombreDeposito);
-
-// DESESTRUCTURACIÓN EN PARÁMETROS
-// const producto1 = {
-//     nombre: "Lechuga",
-//     precio: 20,
-//     categoria: {
-//         nombre: "Verduras",
-//         color: "Verde",
-//         deposito: {
-//             nombre: "Deposito 2",
-//             stock: 20,
-//         }
-//     },
-// };
-
-// function mostrarStock({
-//     categoria: {
-//         nombre,
-//         color,
-//         deposito: {
-//             stock,
-//         }
-//     }
-// }) {
-//
-//     // const {
-//     //     categoria: {
-//     //         nombre,
-//     //         deposito: {
-//     //             stock,
-//     //         }
-//     //     }
-//     // } = producto;
-//
-//     console.log(`El color de la categoría es: ${color}`);
-//     console.log(`El stock de la categoría ${nombre} es ${stock} `);
-//
-// }
-//
-// mostrarStock(producto1);
-
-// const botonsito = document.getElementById("botonsito");
-//
-// botonsito.addEventListener("click", ( {target} ) => {
-//
-//     // const target = e.target;
-//
-//     console.log(target);
-//
-// });
-
-// DESESTRUCTURACIÓN DE ARRAYS
-// const personas = [
-//     {
-//         nombre: "Fernando",
-//         edad: 25,
-//     },
-//     {
-//         nombre: "Alejandro",
-//         edad: 30,
-//     },
-//     {
-//         nombre: "Camila",
-//         edad: 20,
-//     }
+// const nombres = [
+//     "Matias",
+//     "Gabriel",
+//     "Camila",
+//     "Pedro",
+//     "GOnzalo",
 // ];
-
-// const [fernando, alejandro] = personas;
-// const [fernando,,camila] = personas;
 //
-// console.log(fernando);
-// console.log(camila);
-
-// Ejemplo desestructuración de arrays
+// function mostrarNombres(nombre1, nombre2, nombre3, nombre4, nombre5) {
+//
+//     console.log(`Hola ${nombre1}`);
+//     console.log(`Hola ${nombre2}`);
+//     console.log(`Hola ${nombre3}`);
+//     console.log(`Hola ${nombre4}`);
+//     console.log(`Hola ${nombre5}`);
+// }
+//
+// mostrarNombres(nombres[0], nombres[1], nombres[2], nombres[3]);
+// mostrarNombres(...nombres);
+//
+// const numeros = [1, 2, 3, 4 ,5];
+//
+// console.log(Math.max(...numeros));
 
 /**
- *
- * @param producto
- * @returns {number[]}
+ * SPREAD DE OBJETOS
  */
-function calcularAumentoDePrecio(producto) {
 
-    let porcentaje = 0;
-    let nuevoPrecio = 0;
+// const educacion = {
+//     nombre: "Colegio 1",
+//     carrera: "Matemática",
+// }
+//
+// const persona = {
+//     nombre: "Pedro",
+//     apellido: "Rodriguez",
+//     edad: 25,
+//     sexo: "Masculino",
+// };
+//
+// const persona2 = {
+//     ...persona,
+//     edad: 30,
+// };
+//
+// const persona3 = {
+//     ...persona,
+//     ...educacion,
+//     nombre: "Gabriel",
+//     apellido: "Fernandez",
+// }
+//
+// console.log(persona3);
 
-    if(producto.categoria === "Verduras") {
-        porcentaje = 25;
-        nuevoPrecio = producto.precio + (porcentaje * producto.precio) / 100;
+/**
+ * REST PARAMETERS
+ */
+
+// function mostrarNombres(saludo, saludo2, ...nombres) {
+//
+//     for(const nombre of nombres) {
+//         console.log(`${saludo} ${saludo2} ${nombre}`);
+//     }
+// }
+//
+// mostrarNombres("Hola ", "que tal ", "Manuel", "Gonzalo", "Pedro", "Joaquin", "Camila", "Federico", "Hugo", "Braian", "German", "Agustin");
+
+/** ************************************** */
+/**
+ * PROYECTO FINAL
+ */
+/** ************************************** */
+
+// Clases
+class Asiento {
+    constructor(id, precio = 20) {
+        this.id = id;
+        this.comprado = false;
+        this.seleccionado = false;
+        this.precio = precio;
     }
-
-    return [
-        porcentaje,
-        nuevoPrecio
-    ];
 }
 
-const producto1 = {
-    nombre: "Lechuga",
-    categoria: "Verduras",
-    precio: 50,
-};
+// Funciones
+function setearTotalAsientosSeleccionados(asientosSeleccionados) {
 
-const [porcentaje, nuevoPrecioProducto] = calcularAumentoDePrecio(producto1);
+    const totalAsientosSeleccionados = asientosSeleccionados.reduce( (acc, el) => {
 
-console.log(porcentaje);
-console.log(nuevoPrecioProducto);
+        return acc + el.precio;
+
+    }, 0);
+
+    // Cambiamos el HTML
+    spanTotalAsientosSeleccionados.innerText = `$${totalAsientosSeleccionados}`;
+}
+
+function comprarAsiento(asiento) {
+
+    asiento.comprado = true;
+
+    // Le ponemos al div del asiento la clase seleccionado
+    const divAsiento = document.getElementById(`asiento-${asiento.id}`);
+    divAsiento.classList.remove("seleccionado");
+    divAsiento.classList.add("comprado");
+}
+
+function buscarAsientoEnLista(id) {
+
+    let asientoEncontrado = null;
+
+    for(const listaDeAsientos of asientos) {
+
+        for(const asiento of listaDeAsientos) {
+
+            if(asiento !== null && asiento.id === id) {
+                asientoEncontrado = asiento;
+            }
+        }
+    }
+
+    return asientoEncontrado;
+}
+
+function obtenerAsientosComprados() {
+    asientosComprados = JSON.parse(localStorage.getItem("asientosComprados")) || [];
+
+    // Recorremos los asientos comprados
+    for(const asientoComprado of asientosComprados) {
+
+        // Buscamos el asiento en el listado de asientos
+        const asiento = buscarAsientoEnLista(asientoComprado.id);
+
+        if(asiento !== null) {
+
+            asiento.comprado = true;
+
+        }
+
+    }
+}
+
+function comprarAsientos() {
+
+    const asientosCompradosYSeleccionados = [
+        ...asientosComprados,
+        ...asientosSeleccionados,
+    ];
+
+    // Recorrer asientos seleccionados
+    for(const asientoSeleccionado of asientosSeleccionados) {
+        comprarAsiento(asientoSeleccionado);
+    }
+
+    // Limpiar lista de asientos seleccionados
+    asientosSeleccionados = [];
+
+    // Cargamos los asientos a localStorage
+    localStorage.setItem("asientosComprados", JSON.stringify(asientosCompradosYSeleccionados));
+
+    // Obtenemos los asientos comprados
+    obtenerAsientosComprados();
+
+    // Seteamos el total
+    setearTotalAsientosSeleccionados(asientosSeleccionados);
+}
+
+function indiceAsientoSeleccionado(id) {
+    return asientosSeleccionados.findIndex( (el) => {
+        return el.id === id;
+    });
+}
+
+function seleccionarAsiento(asiento) {
+
+    if(asiento.comprado) {
+        alert("ESTE ASIENTO NO SE PUEDE SELECCIONAR");
+        return;
+    }
+
+    // Le ponemos al div del asiento la clase seleccionado
+    const divAsiento = document.getElementById(`asiento-${asiento.id}`);
+
+    // Agregamos el asiento a la lista
+    const indexAsientoSeleccionado = indiceAsientoSeleccionado(asiento.id);
+    if(indexAsientoSeleccionado !== -1) {
+
+        // Seteamos el asiento a que no está seleccionado
+        asiento.seleccionado = false;
+
+        // Remover la clase
+        divAsiento.classList.remove("seleccionado");
+
+        // Sacar de la lista sientos seleccionados...
+        asientosSeleccionados.splice(indexAsientoSeleccionado, 1);
+
+    } else {
+
+        // Seteamos el asiento a seleccionado
+        asiento.seleccionado = true;
+
+        // Agregamos el asiento a la lista de asientos seleccionados
+        asientosSeleccionados.push(asiento);
+
+        // Agregamos la clase
+        divAsiento.classList.add("seleccionado");
+    }
+
+    // Seteamos el total de los asientos seleccionados
+    setearTotalAsientosSeleccionados(asientosSeleccionados);
+}
+
+function renderizarAsientos(asientos) {
+
+    // Limpio el contenedor
+    const divAsientos = document.getElementById("asientos");
+    divAsientos.innerHTML = "";
+
+    // Recorrer los asientos
+    for(const filaDeAsientos of asientos) {
+
+        // Creamos el div para la fila de asientos
+        const divFlex = document.createElement("div");
+        divFlex.className = "d-flex align-items-center";
+
+        for(const asiento of filaDeAsientos) {
+
+            const divAsiento = document.createElement("div");
+            divAsiento.className = "asiento";
+
+            // Chequeo si es un asiento o un espacio vacío
+            if(asiento !== null) {
+                divAsiento.id = `asiento-${asiento.id}`;
+                divAsiento.className += " seleccionable";
+
+                // Chequear si está seleccionado o comprado
+                if(asiento.comprado) {
+                    divAsiento.className += " comprado";
+                }
+
+                if(asiento.seleccionado) {
+                    divAsiento.className += " seleccionado";
+                }
+
+                // Evento de click
+                divAsiento.addEventListener("click", () => {
+
+                    seleccionarAsiento(asiento);
+
+                });
+            }
+
+            // Agregamos el asiento al flex
+            divFlex.append(divAsiento);
+        }
+
+        // Agregamos el flex al contenedor
+        divAsientos.append(divFlex);
+
+    }
+
+}
+
+// Inicio del programa
+let asientosComprados = [];
+let asientosSeleccionados = [];
+const asientos = [
+    [new Asiento("A1"), new Asiento("A2"), null, new Asiento("A3"), new Asiento("A4")],
+    [new Asiento("B1"), new Asiento("B2"), null, new Asiento("B3"), new Asiento("B4")],
+    [new Asiento("C1"), new Asiento("C2"), null, new Asiento("C3"), new Asiento("C4")],
+    [new Asiento("D1"), new Asiento("D2"), null, new Asiento("D3"), new Asiento("D4")],
+    [new Asiento("E1"), new Asiento("E2"), new Asiento("E3"), new Asiento("E4"), new Asiento("E5")],
+    [new Asiento("F1"), new Asiento("F2"), new Asiento("F3"), new Asiento("F4"), new Asiento("F5")],
+];
+
+const spanTotalAsientosSeleccionados = document.getElementById("totalAsientosSeleccionados");
+
+const botonComprarAsientos = document.getElementById("comprarAsientos");
+botonComprarAsientos.addEventListener("click", comprarAsientos);
+
+obtenerAsientosComprados();
+
+// Renderizar asientos
+renderizarAsientos(asientos);
