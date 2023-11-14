@@ -1,287 +1,138 @@
 /**
- * SPREAD DE ARRAYS
+ * SWEET ALERT
  */
 
-// const nombres = [
-//     "Matias",
-//     "Gabriel",
-//     "Camila",
-//     "Pedro",
-//     "GOnzalo",
-// ];
+// const botonsito = document.getElementById("botonsito");
 //
-// function mostrarNombres(nombre1, nombre2, nombre3, nombre4, nombre5) {
+// botonsito.addEventListener("click", () => {
+//     Swal.fire({
+//         title: 'Eliminar',
+//         text: '¿Está seguro que quiere eliminar el elemento?',
+//         icon: 'error',
+//         confirmButtonText: 'SÍ',
+//         showDenyButton: true,
+//         denyButtonText: 'NO',
+//     }).then( (response) => {
 //
-//     console.log(`Hola ${nombre1}`);
-//     console.log(`Hola ${nombre2}`);
-//     console.log(`Hola ${nombre3}`);
-//     console.log(`Hola ${nombre4}`);
-//     console.log(`Hola ${nombre5}`);
-// }
+//         if(response.isConfirmed) {
+//             alert("ELIMINA EL ELEMENTO");
+//         }
 //
-// mostrarNombres(nombres[0], nombres[1], nombres[2], nombres[3]);
-// mostrarNombres(...nombres);
+//         if(response.isDenied || response.isCancel) {
+//             alert("NO SE ELIMINA EL ELEMENTO");
+//         }
 //
-// const numeros = [1, 2, 3, 4 ,5];
-//
-// console.log(Math.max(...numeros));
+//     });
+// });
 
 /**
- * SPREAD DE OBJETOS
+ * TOASTIFY
  */
 
-// const educacion = {
-//     nombre: "Colegio 1",
-//     carrera: "Matemática",
-// }
+// const botonsito2 = document.getElementById("botonsito2");
 //
-// const persona = {
-//     nombre: "Pedro",
-//     apellido: "Rodriguez",
-//     edad: 25,
-//     sexo: "Masculino",
-// };
-//
-// const persona2 = {
-//     ...persona,
-//     edad: 30,
-// };
-//
-// const persona3 = {
-//     ...persona,
-//     ...educacion,
-//     nombre: "Gabriel",
-//     apellido: "Fernandez",
-// }
-//
-// console.log(persona3);
+// botonsito2.addEventListener("click", () => {
+//     Toastify({
+//         text: "NOTIFICACIÓN",
+//         duration: 3000,
+//         // destination: "https://github.com/apvarun/toastify-js",
+//         // newWindow: true,
+//         close: true,
+//         position: "right",
+//         gravity: "top",
+//         stopOnFocus: true, // Prevents dismissing of toast on hover
+//         style: {
+//             background: "linear-gradient(to right, #00b09b, #96c93d)",
+//         },
+//         onClick: function(){
+//             Swal.fire({
+//                 title: 'CLICK',
+//                 text: 'CLICK EN SWEET ALERT',
+//                 icon: 'error',
+//             });
+//         }
+//     }).showToast();
+// });
 
 /**
- * REST PARAMETERS
+ * LUXON
  */
 
-// function mostrarNombres(saludo, saludo2, ...nombres) {
+const DateTime = luxon.DateTime;
 //
-//     for(const nombre of nombres) {
-//         console.log(`${saludo} ${saludo2} ${nombre}`);
-//     }
-// }
+// const fechaDeHoy = DateTime.now();
+// const fechaDeAyer = DateTime.local(2023, 11, 13, 20, 0, 0);
+// const fechaDiciembre = DateTime.local(2023, 12, 24, 20, 0, 0);
 //
-// mostrarNombres("Hola ", "que tal ", "Manuel", "Gonzalo", "Pedro", "Joaquin", "Camila", "Federico", "Hugo", "Braian", "German", "Agustin");
+// // console.log(fechaDiciembre.daysInMonth);
+//
+// const fecha1 = DateTime.local(2023, 11, 14, 15);
+//
+// const fecha2 = fecha1.plus({
+//     hours: 24,
+// });
 
-/** ************************************** */
+// console.log(fecha2.toString());
+
+// console.log(fecha2.setLocale('en-US').toLocaleString());
+
+// console.log(fecha1.toFormat("dd---LL---yyyy"));
+
+// PARSEO
+// const formatoFecha = "14///11//2023 - 20:15:00";
+//
+// const fechaFormateada = DateTime.fromFormat(formatoFecha, "dd///LL//yyyy - HH:mm:ss");
+//
+// console.log(fechaFormateada.toString());
+
+/*
+DURATION
+ */
+
+// const Duration = luxon.Duration;
+//
+// const duracion = Duration.fromObject({
+//     hours: 5,
+//     minutes: 15,
+// });
+
+// const duracion2 = duracion.plus({
+//     hours: 1,
+//     minutes: 20,
+//     seconds: 30,
+// });
+// const duracion2 = duracion.minus({
+//     hours: 1,
+//     minutes: 30,
+// })
+//
+// console.log(duracion2);
+
+/*
+INTERVAL
+ */
+
+// const Interval = luxon.Interval;
+//
+// const fecha1 = DateTime.local(2023, 10, 1);
+// const fecha2 = DateTime.local(2023, 8, 30);
+// const diferencia = Interval.fromDateTimes(fecha2, fecha1);
+//
+// console.log(diferencia.length("months"));
+
 /**
- * PROYECTO FINAL
+ * TYPE DATE
  */
-/** ************************************** */
 
-// Clases
-class Asiento {
-    constructor(id, precio = 20) {
-        this.id = id;
-        this.comprado = false;
-        this.seleccionado = false;
-        this.precio = precio;
-    }
-}
+const fechita = document.getElementById("fechita");
 
-// Funciones
-function setearTotalAsientosSeleccionados(asientosSeleccionados) {
+fechita.addEventListener("change", () => {
 
-    const totalAsientosSeleccionados = asientosSeleccionados.reduce( (acc, el) => {
+    const valor = fechita.value;
 
-        return acc + el.precio;
+    console.log(valor);
 
-    }, 0);
+    // Formatear a luxon
+    const fechaLuxon = DateTime.fromFormat(valor, "yyyy-LL-dd");
+});
 
-    // Cambiamos el HTML
-    spanTotalAsientosSeleccionados.innerText = `$${totalAsientosSeleccionados}`;
-}
-
-function comprarAsiento(asiento) {
-
-    asiento.comprado = true;
-
-    // Le ponemos al div del asiento la clase seleccionado
-    const divAsiento = document.getElementById(`asiento-${asiento.id}`);
-    divAsiento.classList.remove("seleccionado");
-    divAsiento.classList.add("comprado");
-}
-
-function buscarAsientoEnLista(id) {
-
-    let asientoEncontrado = null;
-
-    for(const listaDeAsientos of asientos) {
-
-        for(const asiento of listaDeAsientos) {
-
-            if(asiento !== null && asiento.id === id) {
-                asientoEncontrado = asiento;
-            }
-        }
-    }
-
-    return asientoEncontrado;
-}
-
-function obtenerAsientosComprados() {
-    asientosComprados = JSON.parse(localStorage.getItem("asientosComprados")) || [];
-
-    // Recorremos los asientos comprados
-    for(const asientoComprado of asientosComprados) {
-
-        // Buscamos el asiento en el listado de asientos
-        const asiento = buscarAsientoEnLista(asientoComprado.id);
-
-        if(asiento !== null) {
-
-            asiento.comprado = true;
-
-        }
-
-    }
-}
-
-function comprarAsientos() {
-
-    const asientosCompradosYSeleccionados = [
-        ...asientosComprados,
-        ...asientosSeleccionados,
-    ];
-
-    // Recorrer asientos seleccionados
-    for(const asientoSeleccionado of asientosSeleccionados) {
-        comprarAsiento(asientoSeleccionado);
-    }
-
-    // Limpiar lista de asientos seleccionados
-    asientosSeleccionados = [];
-
-    // Cargamos los asientos a localStorage
-    localStorage.setItem("asientosComprados", JSON.stringify(asientosCompradosYSeleccionados));
-
-    // Obtenemos los asientos comprados
-    obtenerAsientosComprados();
-
-    // Seteamos el total
-    setearTotalAsientosSeleccionados(asientosSeleccionados);
-}
-
-function indiceAsientoSeleccionado(id) {
-    return asientosSeleccionados.findIndex( (el) => {
-        return el.id === id;
-    });
-}
-
-function seleccionarAsiento(asiento) {
-
-    if(asiento.comprado) {
-        alert("ESTE ASIENTO NO SE PUEDE SELECCIONAR");
-        return;
-    }
-
-    // Le ponemos al div del asiento la clase seleccionado
-    const divAsiento = document.getElementById(`asiento-${asiento.id}`);
-
-    // Agregamos el asiento a la lista
-    const indexAsientoSeleccionado = indiceAsientoSeleccionado(asiento.id);
-    if(indexAsientoSeleccionado !== -1) {
-
-        // Seteamos el asiento a que no está seleccionado
-        asiento.seleccionado = false;
-
-        // Remover la clase
-        divAsiento.classList.remove("seleccionado");
-
-        // Sacar de la lista sientos seleccionados...
-        asientosSeleccionados.splice(indexAsientoSeleccionado, 1);
-
-    } else {
-
-        // Seteamos el asiento a seleccionado
-        asiento.seleccionado = true;
-
-        // Agregamos el asiento a la lista de asientos seleccionados
-        asientosSeleccionados.push(asiento);
-
-        // Agregamos la clase
-        divAsiento.classList.add("seleccionado");
-    }
-
-    // Seteamos el total de los asientos seleccionados
-    setearTotalAsientosSeleccionados(asientosSeleccionados);
-}
-
-function renderizarAsientos(asientos) {
-
-    // Limpio el contenedor
-    const divAsientos = document.getElementById("asientos");
-    divAsientos.innerHTML = "";
-
-    // Recorrer los asientos
-    for(const filaDeAsientos of asientos) {
-
-        // Creamos el div para la fila de asientos
-        const divFlex = document.createElement("div");
-        divFlex.className = "d-flex align-items-center";
-
-        for(const asiento of filaDeAsientos) {
-
-            const divAsiento = document.createElement("div");
-            divAsiento.className = "asiento";
-
-            // Chequeo si es un asiento o un espacio vacío
-            if(asiento !== null) {
-                divAsiento.id = `asiento-${asiento.id}`;
-                divAsiento.className += " seleccionable";
-
-                // Chequear si está seleccionado o comprado
-                if(asiento.comprado) {
-                    divAsiento.className += " comprado";
-                }
-
-                if(asiento.seleccionado) {
-                    divAsiento.className += " seleccionado";
-                }
-
-                // Evento de click
-                divAsiento.addEventListener("click", () => {
-
-                    seleccionarAsiento(asiento);
-
-                });
-            }
-
-            // Agregamos el asiento al flex
-            divFlex.append(divAsiento);
-        }
-
-        // Agregamos el flex al contenedor
-        divAsientos.append(divFlex);
-
-    }
-
-}
-
-// Inicio del programa
-let asientosComprados = [];
-let asientosSeleccionados = [];
-const asientos = [
-    [new Asiento("A1"), new Asiento("A2"), null, new Asiento("A3"), new Asiento("A4")],
-    [new Asiento("B1"), new Asiento("B2"), null, new Asiento("B3"), new Asiento("B4")],
-    [new Asiento("C1"), new Asiento("C2"), null, new Asiento("C3"), new Asiento("C4")],
-    [new Asiento("D1"), new Asiento("D2"), null, new Asiento("D3"), new Asiento("D4")],
-    [new Asiento("E1"), new Asiento("E2"), new Asiento("E3"), new Asiento("E4"), new Asiento("E5")],
-    [new Asiento("F1"), new Asiento("F2"), new Asiento("F3"), new Asiento("F4"), new Asiento("F5")],
-];
-
-const spanTotalAsientosSeleccionados = document.getElementById("totalAsientosSeleccionados");
-
-const botonComprarAsientos = document.getElementById("comprarAsientos");
-botonComprarAsientos.addEventListener("click", comprarAsientos);
-
-obtenerAsientosComprados();
-
-// Renderizar asientos
-renderizarAsientos(asientos);
