@@ -1,138 +1,300 @@
 /**
- * SWEET ALERT
+ * GET
  */
 
-// const botonsito = document.getElementById("botonsito");
+// const urlBase = "https://rickandmortyapi.com/api/";
 //
-// botonsito.addEventListener("click", () => {
-//     Swal.fire({
-//         title: 'Eliminar',
-//         text: '¿Está seguro que quiere eliminar el elemento?',
-//         icon: 'error',
-//         confirmButtonText: 'SÍ',
-//         showDenyButton: true,
-//         denyButtonText: 'NO',
-//     }).then( (response) => {
+// fetch(`${urlBase}character`)
+//     .then( (response) => {
+//         return response.json();
+//     })
+//     .then( (responseJson) => {
+//         const personajes = responseJson.results;
 //
-//         if(response.isConfirmed) {
-//             alert("ELIMINA EL ELEMENTO");
+//         for(const personaje of personajes) {
+//             console.log(personaje.name);
 //         }
-//
-//         if(response.isDenied || response.isCancel) {
-//             alert("NO SE ELIMINA EL ELEMENTO");
-//         }
-//
 //     });
+
+/**
+ * POST/PUT/DELETE
+ */
+
+// fetch('https://jsonplaceholder.typicode.com/posts', {
+//     method: 'POST',
+//     body: JSON.stringify({
+//         title: 'NUEVO POST',
+//         body: 'BODY DEL NUEVO POST',
+//         userId: 3,
+//     }),
+//     headers: {
+//         'Content-type': 'application/json',
+//     },
+// }).then( (response) => {
+//     return response.json();
+// }).then( (responseJson) => {
+//     console.log(responseJson);
 // });
 
 /**
- * TOASTIFY
+ * RUTAS RELATIVAS
  */
 
-// const botonsito2 = document.getElementById("botonsito2");
+// async function obtenerProductos() {
 //
-// botonsito2.addEventListener("click", () => {
-//     Toastify({
-//         text: "NOTIFICACIÓN",
-//         duration: 3000,
-//         // destination: "https://github.com/apvarun/toastify-js",
-//         // newWindow: true,
-//         close: true,
-//         position: "right",
-//         gravity: "top",
-//         stopOnFocus: true, // Prevents dismissing of toast on hover
-//         style: {
-//             background: "linear-gradient(to right, #00b09b, #96c93d)",
-//         },
-//         onClick: function(){
-//             Swal.fire({
-//                 title: 'CLICK',
-//                 text: 'CLICK EN SWEET ALERT',
-//                 icon: 'error',
-//             });
-//         }
-//     }).showToast();
-// });
+//     const response = await fetch('/productos.json');
+//     const responseJson = await response.json();
+//
+//     console.log(responseJson);
+//
+//
+// }
+//
+// obtenerProductos();
+//
+// console.log("asd");
 
+/** ************************************** */
 /**
- * LUXON
+ * PROYECTO FINAL
  */
+/** ************************************** */
 
-const DateTime = luxon.DateTime;
-//
-// const fechaDeHoy = DateTime.now();
-// const fechaDeAyer = DateTime.local(2023, 11, 13, 20, 0, 0);
-// const fechaDiciembre = DateTime.local(2023, 12, 24, 20, 0, 0);
-//
-// // console.log(fechaDiciembre.daysInMonth);
-//
-// const fecha1 = DateTime.local(2023, 11, 14, 15);
-//
-// const fecha2 = fecha1.plus({
-//     hours: 24,
-// });
+// Clases
+class Asiento {
+    constructor(id, precio = 20) {
+        this.id = id;
+        this.comprado = false;
+        this.seleccionado = false;
+        this.precio = precio;
+    }
+}
 
-// console.log(fecha2.toString());
+// Funciones
+function setearTotalAsientosSeleccionados(asientosSeleccionados) {
 
-// console.log(fecha2.setLocale('en-US').toLocaleString());
+    const totalAsientosSeleccionados = asientosSeleccionados.reduce( (acc, el) => {
 
-// console.log(fecha1.toFormat("dd---LL---yyyy"));
+        return acc + el.precio;
 
-// PARSEO
-// const formatoFecha = "14///11//2023 - 20:15:00";
-//
-// const fechaFormateada = DateTime.fromFormat(formatoFecha, "dd///LL//yyyy - HH:mm:ss");
-//
-// console.log(fechaFormateada.toString());
+    }, 0);
 
-/*
-DURATION
- */
+    // Cambiamos el HTML
+    spanTotalAsientosSeleccionados.innerText = `$${totalAsientosSeleccionados}`;
+}
 
-// const Duration = luxon.Duration;
-//
-// const duracion = Duration.fromObject({
-//     hours: 5,
-//     minutes: 15,
-// });
+function comprarAsiento(asiento) {
 
-// const duracion2 = duracion.plus({
-//     hours: 1,
-//     minutes: 20,
-//     seconds: 30,
-// });
-// const duracion2 = duracion.minus({
-//     hours: 1,
-//     minutes: 30,
-// })
-//
-// console.log(duracion2);
+    asiento.comprado = true;
 
-/*
-INTERVAL
- */
+    // Le ponemos al div del asiento la clase seleccionado
+    const divAsiento = document.getElementById(`asiento-${asiento.id}`);
+    divAsiento.classList.remove("seleccionado");
+    divAsiento.classList.add("comprado");
+}
 
-// const Interval = luxon.Interval;
-//
-// const fecha1 = DateTime.local(2023, 10, 1);
-// const fecha2 = DateTime.local(2023, 8, 30);
-// const diferencia = Interval.fromDateTimes(fecha2, fecha1);
-//
-// console.log(diferencia.length("months"));
+function buscarAsientoEnLista(id) {
 
-/**
- * TYPE DATE
- */
+    let asientoEncontrado = null;
 
-const fechita = document.getElementById("fechita");
+    for(const listaDeAsientos of asientos) {
 
-fechita.addEventListener("change", () => {
+        for(const asiento of listaDeAsientos) {
 
-    const valor = fechita.value;
+            if(asiento !== null && asiento.id === id) {
+                asientoEncontrado = asiento;
+            }
+        }
+    }
 
-    console.log(valor);
+    return asientoEncontrado;
+}
 
-    // Formatear a luxon
-    const fechaLuxon = DateTime.fromFormat(valor, "yyyy-LL-dd");
+function obtenerAsientosComprados() {
+    asientosComprados = JSON.parse(localStorage.getItem("asientosComprados")) || [];
+
+    // Recorremos los asientos comprados
+    for(const asientoComprado of asientosComprados) {
+
+        // Buscamos el asiento en el listado de asientos
+        const asiento = buscarAsientoEnLista(asientoComprado.id);
+
+        if(asiento !== null) {
+
+            asiento.comprado = true;
+
+        }
+
+    }
+}
+
+function comprarAsientos() {
+
+    const asientosCompradosYSeleccionados = [
+        ...asientosComprados,
+        ...asientosSeleccionados,
+    ];
+
+    // Recorrer asientos seleccionados
+    for(const asientoSeleccionado of asientosSeleccionados) {
+        comprarAsiento(asientoSeleccionado);
+    }
+
+    // Limpiar lista de asientos seleccionados
+    asientosSeleccionados = [];
+
+    // Cargamos los asientos a localStorage
+    localStorage.setItem("asientosComprados", JSON.stringify(asientosCompradosYSeleccionados));
+
+    // Obtenemos los asientos comprados
+    obtenerAsientosComprados();
+
+    // Seteamos el total
+    setearTotalAsientosSeleccionados(asientosSeleccionados);
+}
+
+function indiceAsientoSeleccionado(id) {
+    return asientosSeleccionados.findIndex( (el) => {
+        return el.id === id;
+    });
+}
+
+function seleccionarAsiento(asiento) {
+
+    if(asiento.comprado) {
+        alert("ESTE ASIENTO NO SE PUEDE SELECCIONAR");
+        return;
+    }
+
+    // Le ponemos al div del asiento la clase seleccionado
+    const divAsiento = document.getElementById(`asiento-${asiento.id}`);
+
+    // Agregamos el asiento a la lista
+    const indexAsientoSeleccionado = indiceAsientoSeleccionado(asiento.id);
+    if(indexAsientoSeleccionado !== -1) {
+
+        // Seteamos el asiento a que no está seleccionado
+        asiento.seleccionado = false;
+
+        // Remover la clase
+        divAsiento.classList.remove("seleccionado");
+
+        // Sacar de la lista sientos seleccionados...
+        asientosSeleccionados.splice(indexAsientoSeleccionado, 1);
+
+    } else {
+
+        // Seteamos el asiento a seleccionado
+        asiento.seleccionado = true;
+
+        // Agregamos el asiento a la lista de asientos seleccionados
+        asientosSeleccionados.push(asiento);
+
+        // Agregamos la clase
+        divAsiento.classList.add("seleccionado");
+    }
+
+    // Seteamos el total de los asientos seleccionados
+    setearTotalAsientosSeleccionados(asientosSeleccionados);
+}
+
+function renderizarAsientos(asientos) {
+
+    // Limpio el contenedor
+    const divAsientos = document.getElementById("asientos");
+    divAsientos.innerHTML = "";
+
+    // Recorrer los asientos
+    for(const filaDeAsientos of asientos) {
+
+        // Creamos el div para la fila de asientos
+        const divFlex = document.createElement("div");
+        divFlex.className = "d-flex align-items-center";
+
+        for(const asiento of filaDeAsientos) {
+
+            const divAsiento = document.createElement("div");
+            divAsiento.className = "asiento";
+
+            // Chequeo si es un asiento o un espacio vacío
+            if(asiento !== null) {
+                divAsiento.id = `asiento-${asiento.id}`;
+                divAsiento.className += " seleccionable";
+
+                // Chequear si está seleccionado o comprado
+                if(asiento.comprado) {
+                    divAsiento.className += " comprado";
+                }
+
+                if(asiento.seleccionado) {
+                    divAsiento.className += " seleccionado";
+                }
+
+                // Evento de click
+                divAsiento.addEventListener("click", () => {
+
+                    seleccionarAsiento(asiento);
+
+                });
+            }
+
+            // Agregamos el asiento al flex
+            divFlex.append(divAsiento);
+        }
+
+        // Agregamos el flex al contenedor
+        divAsientos.append(divFlex);
+
+    }
+
+}
+
+function obtenerAsientosJSON() {
+
+    return new Promise( (resolve, reject) => {
+
+        fetch('/asientos.json').then( (response) => {
+            return response.json();
+        }).then( (responseJson) => {
+
+            for(const filaAsiento of responseJson) {
+
+                const fila = [];
+
+                for(const asiento of filaAsiento) {
+
+                    if(asiento !== "") {
+                        fila.push(new Asiento(asiento));
+                    } else {
+                        fila.push(null);
+                    }
+
+                }
+
+                asientos.push(fila);
+            }
+
+            resolve();
+        });
+
+    });
+}
+
+// Inicio del programa
+let asientosComprados = [];
+let asientosSeleccionados = [];
+const asientos = [];
+
+const spanTotalAsientosSeleccionados = document.getElementById("totalAsientosSeleccionados");
+
+const botonComprarAsientos = document.getElementById("comprarAsientos");
+botonComprarAsientos.addEventListener("click", comprarAsientos);
+
+obtenerAsientosJSON().then( () => {
+
+    obtenerAsientosComprados();
+
+    // Renderizar asientos
+    renderizarAsientos(asientosCargados);
+
 });
-
